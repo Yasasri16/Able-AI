@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AbleAI | Voice</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+
+  <style>
+  /* Mic icon styling */
+  .mic-only i {
+    font-size: 48px;
+    color: black; /* idle */
+    transition: color 0.2s ease;
+  }
+
+  .mic-only.recording i {
+    color: red; /* recording */
+  }
+</style>
+
+</head>
+
+<body class="app-body">
+
+<header class="header feature-header">
+
+  <!-- LEFT: Dark Mode -->
+  <div class="header-left">
+    <label class="switch">
+      <input type="checkbox" onclick="toggleDarkMode()">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <!-- CENTER: AbleAI -->
+  <div class="header-center">
+    <h1>AbleAI</h1>
+  </div>
+
+  <!-- RIGHT: Navigation -->
+  <nav class="header-right top-nav">
+    <a href="text.html">Text</a>
+    <a href="voice.html">Voice</a>
+    <a href="gestures.html">Gestures</a>
+  </nav>
+
+</header>
+
+<main class="feature-page">
+  <h2>Voice Interaction</h2>
+  <p>Speak naturally — AbleAI converts unclear speech into intent.</p>
+
+  <div class="voice-action">
+
+    <!-- MIC BUTTON -->
+    <button class="action-btn mic-only" onclick="toggleMic()">
+      <i id="micIcon" class="fa-solid fa-microphone"></i>
+    </button>
+
+    <p id="correctedText" style="color: gray; margin-top: 15px;"></p> 
+    <p id="finalResponse" style="font-size: 18px;"></p>
+
+    <div class="upload-container">
+      <label for="file-upload" class="upload-btn">
+        <span>📁 Upload File</span>
+      </label>
+      <input
+        type="file"
+        id="file-upload"
+        hidden
+        onchange="handleFileUpload(this)"
+      >
+    </div>
+
+    <div id="file-preview-zone" class="preview-zone"></div>
+  </div>
+
+  <a href="index.html" class="back-link">← Back to Home</a>
+</main>
+
+<script src="script.js"></script>
+
+<script>
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    alert("Speech Recognition not supported in this browser");
+  }
+
+  const recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.lang = "en-US";
+
+  let isListening = false;
+  let finalTranscript = "";
+
+  recognition.onresult = (event) => {
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      const transcript = event.results[i][0].transcript;
+
+      if (event.results[i].isFinal) {
+        finalTranscript += transcript + " ";
+      }
+    }
+  };
+
+  recognition.onend = () => {
+  console.log("Recognition ended. Final transcript:", finalTranscript);
+
+  if (finalTranscript.trim().length > 0) {
+    sendToBackend(finalTranscript);
+  } else {
+    console.log("No speech detected");
+  }
+};
+
+  function toggleMic() {
+    const micBtn = document.querySelector(".mic-only");
+
+    if (!isListening) {
+      finalTranscript = "";
+      recognition.start();
+      isListening = true;
+
+      micBtn.classList.add("recording"); // 🔴 red mic
+      console.log("Mic started");
+
+    } else {
+      recognition.stop();
+      isListening = false;
+
+      micBtn.classList.remove("recording"); // ⚫ black mic
+      console.log("Mic stopped:", finalTranscript);
+    }
+  }
+</script>
+
+</body>
+</html>

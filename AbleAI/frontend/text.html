@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AbleAI | Text</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="app-body">
+
+
+<header class="header feature-header">
+
+  <!-- LEFT: Dark Mode -->
+  <div class="header-left">
+    <label class="switch">
+      <input type="checkbox" onclick="toggleDarkMode()">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <!-- CENTER: AbleAI -->
+  <div class="header-center">
+    <h1>AbleAI</h1>
+  </div>
+
+  <!-- RIGHT: Navigation -->
+  <nav class="header-right top-nav">
+    <!-- change links per page -->
+    <a href="text.html">Text</a>
+    <a href="voice.html">Voice</a>
+    <a href="gestures.html">Gestures</a>
+  </nav>
+
+</header>
+
+
+<main class="feature-page">
+  <h2>Text Interaction</h2>
+  <p>Type freely — AbleAI understands intent, not spelling.</p>
+
+  <textarea id="textInput" class="text-box" placeholder="Type here..."></textarea>
+  <p id="correctedText" style="color: gray; margin-top: 10px;"></p>
+  <p id="finalResponse" style="font-size: 18px;"></p>
+  <button class="action-btn" onclick="handleText()">Understand</button>
+
+  <a href="index.html" class="back-link">← Back to Home</a>
+</main>
+
+<script src="script.js"></script>
+
+<script>
+  function handleText() {
+    console.log("Button clicked");
+    const text = document.getElementById("textInput").value;
+    console.log("User input:", text);
+    sendToBackend(text);
+  }
+</script>
+</body>
+</html>

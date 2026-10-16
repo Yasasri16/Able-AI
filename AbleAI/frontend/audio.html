@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Speech to Text</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+
+    #micBtn {
+      font-size: 32px;
+      padding: 16px 20px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      background: #eee;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    #micBtn.recording {
+      background: red;
+      color: white;
+      transform: scale(1.1);
+    }
+
+    #liveText {
+      margin-top: 20px;
+      font-size: 18px;
+      min-height: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mic Button -->
+  <button id="micBtn" onclick="toggleMic()">🎙️</button>
+
+  <p id="correctedText" style="color: gray; margin-top: 10px;"></p>
+  <p id="finalResponse" style="font-size: 18px;"></p>
+
+  <!-- Output Text -->
+  <p id="liveText"></p>
+
+  <script>
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      alert("Speech Recognition not supported in this browser");
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.lang = "en-US";
+
+    let isListening = false;
+
+    let finalTranscript = "";
+
+    recognition.onresult = (event) => {
+        let interimTranscript = "";
+
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+        const transcript = event.results[i][0].transcript;
+
+        if (event.results[i].isFinal) {
+            finalTranscript += transcript + " ";
+        } else {
+            interimTranscript += transcript;
+        }
+        }
+
+        document.getElementById("liveText").innerText =
+        finalTranscript + interimTranscript;
+    };
+
+    recognition.onend = () => {
+      // Chrome sometimes stops automatically
+      if (isListening) {
+        recognition.start();
+      }
+    };
+
+    function toggleMic() {
+        const btn = document.getElementById("micBtn");
+
+        if (!isListening) {
+            finalTranscript = "";
+            recognition.start();
+            isListening = true;
+            btn.innerHTML = "⏹️";
+            btn.classList.add("recording");
+        } else {
+            recognition.stop();
+            isListening = false;
+            btn.innerHTML = "🎙️";
+            btn.classList.remove("recording");
+
+            sendToBackend(finalTranscript);
+        }
+    }
+    
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>

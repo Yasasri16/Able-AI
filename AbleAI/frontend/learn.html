@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AbleAI | Learn Sign Language</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: #f5f7fb;
+      color: #222;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: #4f46e5;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 20px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 25px;
+      background: #e0e7ff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .tab-btn.active {
+      background: #4f46e5;
+      color: white;
+    }
+
+    .content {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+      text-align: center;
+      flex: 1;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .section h2 {
+      margin-bottom: 20px;
+      color: #1e1b4b;
+    }
+
+    /* SINGLE IMAGE BOX */
+    .image-box {
+      background: white;
+      padding: 10px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      display: inline-block;
+      max-width: 95%;
+    }
+
+    .image-box img {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+    }
+
+    /* GRID */
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      justify-items: center;
+    }
+
+    .grid-card {
+      background: white;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      width: 100%;
+    }
+
+    .grid-card img {
+      width: 100%;
+      border-radius: 5px;
+      display: block;
+    }
+
+    .grid-card p {
+      margin-top: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      color: #4f46e5;
+    }
+
+    /* BACK BUTTON */
+    .back-gesture {
+      text-align: center;
+      margin: 30px 0 10px;
+    }
+
+    .back-gesture a {
+      display: inline-block;
+      padding: 10px 22px;
+      background: #4f46e5;
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .back-gesture a:hover {
+      background: #4338ca;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Learn Sign Language</h1>
+  <p>Alphabets • Numbers • Daily Words</p>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showSection(event, 'alphabets')">🔤 Alphabets</button>
+  <button class="tab-btn" onclick="showSection(event, 'numbers')">🔢 Numbers</button>
+  <button class="tab-btn" onclick="showSection(event, 'words')">🗣️ Words</button>
+  <button class="tab-btn" onclick="showSection(event, 'daily')">🏠 Daily</button>
+</div>
+
+<div class="content">
+
+  <div id="alphabets" class="section active">
+    <h2>Sign Language Alphabets</h2>
+    <div class="image-box">
+      <img src="signs/alphabets.jpeg" alt="Alphabets">
+    </div>
+  </div>
+
+  <div id="numbers" class="section">
+    <h2>Sign Language Numbers</h2>
+    <div class="image-box">
+      <img src="signs/numbers.jpeg" alt="Numbers">
+    </div>
+  </div>
+
+  <div id="words" class="section">
+    <h2>Basic Words</h2>
+    <div class="image-box">
+      <img src="signs/words.jpeg" alt="Words">
+    </div>
+  </div>
+
+  <div id="daily" class="section">
+    <h2>Daily Used Words</h2>
+
+    <div class="image-grid">
+      <div class="grid-card"><img src="signs/Afraid.jpeg"><p>Afraid</p></div>
+      <div class="grid-card"><img src="signs/Baby.jpeg"><p>Baby</p></div>
+      <div class="grid-card"><img src="signs/Backpack.jpeg"><p>Backpack</p></div>
+      <div class="grid-card"><img src="signs/Beautiful.jpeg"><p>Beautiful</p></div>
+      <div class="grid-card"><img src="signs/Big.jpeg"><p>Big</p></div>
+      <div class="grid-card"><img src="signs/COLD.jpeg"><p>Cold</p></div>
+      <div class="grid-card"><img src="signs/Come.jpeg"><p>Come</p></div>
+      <div class="grid-card"><img src="signs/Computer.jpeg"><p>Computer</p></div>
+      <div class="grid-card"><img src="signs/dl.jpeg"><p>Don't Like</p></div>
+      <div class="grid-card"><img src="signs/dk.jpeg"><p>Don't Know</p></div>
+      <div class="grid-card"><img src="signs/Hot.jpeg"><p>Hot</p></div>
+      <div class="grid-card"><img src="signs/Hungry.jpeg"><p>Hungry</p></div>
+      <div class="grid-card"><img src="signs/How Much.jpeg"><p>How Much</p></div>
+      <div class="grid-card"><img src="signs/Open.jpeg"><p>Open</p></div>
+      <div class="grid-card"><img src="signs/Outside.jpeg"><p>Outside</p></div>
+      <div class="grid-card"><img src="signs/Owl.jpeg"><p>Owl</p></div>
+      <div class="grid-card"><img src="signs/Shampoo.jpeg"><p>Shampoo</p></div>
+      <div class="grid-card"><img src="signs/Shoes.jpeg"><p>Shoes</p></div>
+      <div class="grid-card"><img src="signs/Show.jpeg"><p>Show</p></div>
+      <div class="grid-card"><img src="signs/Sleep.jpeg"><p>Sleep</p></div>
+      <div class="grid-card"><img src="signs/Swim.jpeg"><p>Swim</p></div>
+      <div class="grid-card"><img src="signs/Sun.jpeg"><p>Sun</p></div>
+      <div class="grid-card"><img src="signs/Wake Up.jpeg"><p>Wake Up</p></div>
+      <div class="grid-card"><img src="signs/Welcome.jpeg"><p>Welcome</p></div>
+      <div class="grid-card"><img src="signs/Yuck.jpeg"><p>Yuck</p></div>
+    </div>
+  </div>
+
+  <!-- BACK BUTTON -->
+  <div class="back-gesture">
+    <a href="gestures.html">← Back to Gestures</a>
+  </div>
+
+</div>
+
+<footer>Made with ❤️ for inclusive communication</footer>
+
+<script>
+  function showSection(event, id) {
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+    event.currentTarget.classList.add("active");
+  }
+</script>
+
+</body>
+</html>
