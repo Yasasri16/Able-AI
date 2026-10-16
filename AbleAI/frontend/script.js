@@ -3,7 +3,7 @@
 // ================================
 
 console.log("script.js loaded");
-
+const API_BASE = "https://able-ai.onrender.com";
 // -------------------------------
 // DOM READY
 // -------------------------------
