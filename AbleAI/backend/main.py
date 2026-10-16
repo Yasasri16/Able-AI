@@ -16,6 +16,9 @@ app = FastAPI()
 class GestureInput(BaseModel):
     sentence: str
 
+@app.get("/")
+def read_root():
+    return {"message": "AbleAI Backend is running successfully!"}
 latest_gesture_output = {"sentence": ""}
 
 app.add_middleware(
